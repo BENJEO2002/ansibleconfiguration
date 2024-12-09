@@ -1,0 +1,25 @@
+---
+- name: install java maven jenkins
+  hosts: dev
+  user: ansible
+  become: yes
+  connection: ssh
+  tasks:
+    - name: install java
+      shell: sudo yum install java-17* -y
+
+    - name: copy file from master to worker
+      copy:
+        src: /home/ansible/maven.sh
+        dest: /home/ansible/
+
+    - name: run maven script
+      shell: sh /home/ansible/maven.sh
+
+    - name: copy file from master to worker node
+      copy:
+        src: /home/ansible/jenkins.sh
+        dest: /home/ansible/
+
+    - name: run jenkins script
+      shell: sh /home/ansible/jenkins.sh
