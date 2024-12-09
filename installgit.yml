@@ -1,0 +1,14 @@
+---
+- name: Install Git and clone the repository
+  hosts: dev
+  user: ansible
+  become: yes
+  connection: ssh
+  tasks:
+    - name: Install Git
+      yum:
+        name: git
+        state: present
+
+    - name: Pull the source code
+      shell: git clone https://github.com/BENJEO2002/ansibleconfig.git
