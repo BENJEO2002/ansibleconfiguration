@@ -1,0 +1,14 @@
+---
+- name: copy and run
+  hosts: dev
+  user: ansible
+  become: yes
+  connection: ssh
+  tasks:
+    - name: copy file from master to worker
+      copy:
+        src: /home/ansible/file.sh
+        dest: /home/ansible/
+
+    - name: run script
+      shell: sh file.sh

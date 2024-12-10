@@ -1,0 +1,20 @@
+---
+- name: Install Docker, pull Nginx, and run the container
+  hosts: dev
+  user: ansible
+  become: yes
+  connection: ssh
+  tasks:
+    - name: Copy Docker installation script
+      copy:
+        src: /home/ansible/docker.sh
+        dest: /home/ansible/
+
+    - name: Install Docker using the script
+      shell: sh /home/ansible/docker.sh
+
+    - name: Pull Nginx Docker image
+      shell: docker pull nginx
+
+    - name: Run Nginx container
+      shell: docker run -it -d --name web nginx
